@@ -21,8 +21,14 @@ pick,section_name
 4,block reverse
 ```
 
+I've included a screenshot called `original_treadling.png` in the sample_inputs folder that shows the original treadling draft I referred to when creating my sample input CSV files. 
+
+# Running the Script
+
 Command needed to run script:
 
 ```
 python weaving_liftplan.py ./sample_inputs/towel_8_sections.csv ./sample_inputs/towel_8_treadling.csv ./sample_inputs/sample_tieup.csv --shafts 8 --output annotated_plan.pdf
 ```
+
+Refer to included file `annotated_plan.pdf` for the output created by the sample inputs provided.
