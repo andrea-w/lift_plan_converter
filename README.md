@@ -23,6 +23,11 @@ pick,section_name
 
 I've included a screenshot called `original_treadling.png` in the sample_inputs folder that shows the original treadling draft I referred to when creating my sample input CSV files. 
 
+# Project Setup
+
+First ensure you have python and poetry installed.
+At the root level of the directory, run `poetry install`. This will install all the necessary packages.
+
 # Running the Script
 
 Command needed to run script:
