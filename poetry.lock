@@ -32,7 +32,6 @@ python-versions = ">=3.9"
 
 [package.dependencies]
 numpy = [
-    {version = ">=1.22.4", markers = "python_version < \"3.11\""},
     {version = ">=1.23.2", markers = "python_version == \"3.11\""},
     {version = ">=1.26.0", markers = "python_version >= \"3.12\""},
 ]
@@ -138,8 +137,8 @@ python-versions = ">=2"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.9"
-content-hash = "f5268750dd258330959113fa7d4ec32d7221898c0aadf9457f2fec46b11ab9ea"
+python-versions = "^3.11"
+content-hash = "8bdb4a9689df0f6ecc500aca4fc58316308027c9f316557374bf79067cf3d414"
 
 [metadata.files]
 argparse = []
