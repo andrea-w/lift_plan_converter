@@ -79,12 +79,13 @@ def load_treadling(sections_df, sequence_csv_path):
 
     for _, row in sequence_df.iterrows():
         seq_name = row["section_name"].strip()
-        # Match optional repeats: e.g., "hem x4"
-        m = re.match(r"^(.+?)(?:\s+x(\d+))?$", seq_name, re.I)
+        # Match optional repeats and optional reverse
+        m = re.match(r"^(.+?)(?:\s+x(\d+))?(?:\s+reverse)?$", seq_name, re.I)
         if not m:
             raise ValueError(f"Invalid section_name format: '{seq_name}'")
         name = m.group(1).strip()
         repeat = int(m.group(2)) if m.group(2) else 1
+        is_reverse = bool(re.search(r"reverse$", seq_name, re.I))
 
         # Select rows from sections_df corresponding to this section
         section_rows = sections_df[sections_df["section_name"].str.lower() == name.lower()]
@@ -93,10 +94,14 @@ def load_treadling(sections_df, sequence_csv_path):
 
         # Repeat the section
         for _ in range(repeat):
-            for _, sec_row in section_rows.iterrows():
+            if is_reverse:
+                iter_rows = section_rows.iloc[::-1].itertuples()
+            else:
+                iter_rows = section_rows.itertuples()
+            for sec_row in iter_rows:
                 expanded_rows.append({
-                    "treadles": str(sec_row["treadles"]).strip(),
-                    "section_label": sec_row["section_name"]
+                    "treadles": str(sec_row.treadles).strip(),
+                    "section_label": sec_row.section_name
                 })
 
     # Build final flat DataFrame with picks numbered 1..N
