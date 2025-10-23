@@ -12,7 +12,7 @@ app = FastAPI()
 # ✅ Allow requests from your frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://weaving-liftplan.vercel.app"],  # update after frontend deploy
+    allow_origins=["https://lift-plan-converter.vercel.app/"],  # update after frontend deploy
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
