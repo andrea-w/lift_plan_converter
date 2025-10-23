@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function App() {
   const [status, setStatus] = useState("");
-  const [backendUrl] = useState("https://liftplan-backend.onrender.com"); // update once deployed
+  const [backendUrl] = useState("https://lift-plan-converter.onrender.com/"); // update once deployed
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
