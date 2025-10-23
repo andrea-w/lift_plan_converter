@@ -5,7 +5,7 @@ import pandas as pd
 import tempfile
 from pathlib import Path
 
-from liftplan import generate_lift_plan, draw_liftplan_pdf  # your existing module
+from liftplan import get_num_shafts, load_sections, load_tieup, load_treadling, generate_lift_plan, draw_liftplan_pdf  # your existing module
 
 app = FastAPI()
 
@@ -21,12 +21,14 @@ app.add_middleware(
 @app.post("/generate_liftplan/")
 async def generate_liftplan(
     tieup: UploadFile = File(...),
+    sections: UploadFile = File(...),
     treadling: UploadFile = File(...),
 ):
-    tieup_df = pd.read_csv(tieup.file)
-    treadling_df = pd.read_csv(treadling.file)
-
-    lift_plan_df = generate_lift_plan(tieup_df, treadling_df)
+    tieup_df = load_tieup(tieup.file)
+    sections_df = load_sections(sections.file)
+    treadling_df = load_treadling(sections_df, treadling.file)
+    num_shafts = get_num_shafts(tieup_df)
+    lift_plan_df = generate_lift_plan(tieup_df, treadling_df, num_shafts)
 
     tmpdir = Path(tempfile.gettempdir())
     pdf_path = tmpdir / "liftplan.pdf"

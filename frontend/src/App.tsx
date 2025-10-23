@@ -41,6 +41,10 @@ function App() {
           <input type="file" name="tieup" required />
         </label>
         <label>
+          Sections CSV:
+          <input type="file" name="sections" required />
+        </label>
+        <label>
           Treadling CSV:
           <input type="file" name="treadling" required />
         </label>

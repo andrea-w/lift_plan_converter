@@ -138,6 +138,12 @@ def load_tieup(csv_path):
     df["shafts"] = df["shafts"].astype(str).str.strip()
     return df
 
+# ============================================================
+# Calculate number of shafts based on tie-up
+# ============================================================
+def get_num_shafts(tieup_df):
+    return len([col for col in tieup_df.columns if col.lower().startswith("shaft")])
+
 
 # ============================================================
 # 3️⃣ Generate Lift Plan
@@ -257,12 +263,12 @@ if __name__ == "__main__":
     parser.add_argument("sections", help="Path to CSV describing sections")
     parser.add_argument("treadling", help="Path to treadling CSV file of section repeats")
     parser.add_argument("tieup", help="Path to tie-up CSV file")
-    parser.add_argument("--shafts", type=int, default=8)
     parser.add_argument("--output", default="lift_plan_annotated.pdf")
     args = parser.parse_args()
     
     sections_df = load_sections(args.sections)
     treadling_df = load_treadling(sections_df, args.treadling)
     tieup_df = load_tieup(args.tieup)
-    lift_plan_df = generate_lift_plan(treadling_df, tieup_df, num_shafts=args.shafts)
+    num_shafts = get_num_shafts(tieup_df)
+    lift_plan_df = generate_lift_plan(treadling_df, tieup_df, num_shafts)
     draw_liftplan_pdf(lift_plan_df, args.output)
