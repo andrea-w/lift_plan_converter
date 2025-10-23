@@ -136,6 +136,8 @@ def load_tieup(csv_path):
 
     df["treadle"] = df["treadle"].apply(lambda x: int(float(x)))
     df["shafts"] = df["shafts"].astype(str).str.strip()
+    print("tieup df")
+    print(df)
     return df
 
 # ============================================================
