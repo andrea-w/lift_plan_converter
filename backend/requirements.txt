@@ -2,3 +2,4 @@ fastapi
 uvicorn
 pandas
 reportlab
+python-multipart
