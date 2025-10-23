@@ -28,7 +28,7 @@ async def generate_liftplan(
     sections_df = load_sections(sections.file)
     treadling_df = load_treadling(sections_df, treadling.file)
     num_shafts = get_num_shafts(tieup_df)
-    lift_plan_df = generate_lift_plan(tieup_df, treadling_df, num_shafts)
+    lift_plan_df = generate_lift_plan(treadling_df, tieup_df, num_shafts)
 
     tmpdir = Path(tempfile.gettempdir())
     pdf_path = tmpdir / "liftplan.pdf"
