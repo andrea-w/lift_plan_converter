@@ -4,6 +4,7 @@ from fastapi.responses import FileResponse
 import pandas as pd
 import tempfile
 from pathlib import Path
+from reportlab.pdfgen import canvas
 
 from liftplan import get_num_shafts, load_sections, load_tieup, load_treadling, generate_lift_plan, draw_liftplan_pdf  # your existing module
 
@@ -30,8 +31,9 @@ async def generate_liftplan(
     num_shafts = get_num_shafts(tieup_df)
     lift_plan_df = generate_lift_plan(treadling_df, tieup_df, num_shafts)
 
-    tmpdir = Path(tempfile.gettempdir())
-    pdf_path = tmpdir / "liftplan.pdf"
+    pdf_path = Path(tempfile.gettempdir()) / "liftplan.pdf"
+    c = canvas.Canvas(str(pdf_path))
+
     draw_liftplan_pdf(lift_plan_df, pdf_path)
 
-    return FileResponse(pdf_path, filename="liftplan.pdf", media_type="application/pdf")
+    return FileResponse(str(pdf_path), filename="liftplan.pdf", media_type="application/pdf")
